@@ -7,6 +7,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'tesla-battery',
   template: `
+  <form class="tesla-battery" [formGroup]="tesla">
+      <h1>{{ title }}</h1>
+      <tesla-car [wheelsize]="tesla.get('config.wheels').value"></tesla-car>
+
     <form class="tesla-battery" [formGroup]="tesla">
       <h1>{{ title }}</h1>
       <div class="tesla-battery__notice">
@@ -22,6 +26,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
         </p>
       </div>
     </form>
+  </form>  
   `,
   styleUrls: ['./tesla-battery.component.scss']
 })
