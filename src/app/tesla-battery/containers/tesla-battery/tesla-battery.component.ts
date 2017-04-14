@@ -15,7 +15,28 @@ import { BatteryService } from '../../tesla-battery.service';
       <h1>{{ title }}</h1>
       <tesla-car [wheelsize]="tesla.get('config.wheels').value"></tesla-car>
       <tesla-stats [stats]="stats"></tesla-stats>
-      
+
+      <div class="tesla-controls cf" formGroupName="config">
+        <tesla-counter
+          [title]="'Speed'"
+          [unit]="'mph'"
+          [step]="5"
+          [min]="45"
+          [max]="70"
+          formControlName="speed">
+        </tesla-counter>
+        <div class="tesla-climate cf">
+          <tesla-counter
+            [title]="'Outside Temperature'"
+            [unit]="'°'"
+            [step]="10"
+            [min]="-10"
+            [max]="40"
+            formControlName="temperature">
+          </tesla-counter>
+        </div>
+      </div>
+
     <form class="tesla-battery" [formGroup]="tesla">
       <h1>{{ title }}</h1>
       <div class="tesla-battery__notice">
