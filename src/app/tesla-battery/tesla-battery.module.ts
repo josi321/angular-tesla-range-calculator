@@ -17,6 +17,9 @@ import { TeslaCarComponent } from './components/tesla-car/tesla-car.component';
 import { TeslaStatsComponent } from './components/tesla-stats/tesla-stats.component';
 // tesla battery counter
 import { TeslaCounterComponent } from './components/tesla-counter/tesla-counter.component';
+// temperature control aka heat and aircon
+import { TeslaClimateComponent } from './components/tesla-climate/tesla-climate.component';
+
 
 
 @NgModule({
@@ -25,7 +28,8 @@ import { TeslaCounterComponent } from './components/tesla-counter/tesla-counter.
     TeslaBatteryComponent,
     TeslaCarComponent,
     TeslaStatsComponent,
-    TeslaCounterComponent
+    TeslaCounterComponent,
+    TeslaClimateComponent
   ],
   imports: [
     CommonModule,
