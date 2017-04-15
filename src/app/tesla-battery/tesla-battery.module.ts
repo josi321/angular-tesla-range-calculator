@@ -19,6 +19,8 @@ import { TeslaStatsComponent } from './components/tesla-stats/tesla-stats.compon
 import { TeslaCounterComponent } from './components/tesla-counter/tesla-counter.component';
 // temperature control aka heat and aircon
 import { TeslaClimateComponent } from './components/tesla-climate/tesla-climate.component';
+// import the wheel size aka users can select wheels used
+import { TeslaWheelsComponent } from './components/tesla-wheels/tesla-wheels.component';
 
 
 
@@ -29,7 +31,8 @@ import { TeslaClimateComponent } from './components/tesla-climate/tesla-climate.
     TeslaCarComponent,
     TeslaStatsComponent,
     TeslaCounterComponent,
-    TeslaClimateComponent
+    TeslaClimateComponent,
+    TeslaWheelsComponent
   ],
   imports: [
     CommonModule,
