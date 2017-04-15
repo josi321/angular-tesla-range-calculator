@@ -11,10 +11,11 @@ import { BatteryService } from '../../tesla-battery.service';
 @Component({
   selector: 'tesla-battery',
   template: `
-    <form class="tesla-battery" [formGroup]="tesla">
+  <form class="tesla-battery" [formGroup]="tesla">
       <h1>{{ title }}</h1>
-      <tesla-car [wheelsize]="tesla.get('config.wheels').value" [speed]="tesla.get('config.speed').value"></tesla-car>
+      <tesla-car [wheelsize]="tesla.get('config.wheels').value"></tesla-car>
       <tesla-stats [stats]="stats"></tesla-stats>
+
       <div class="tesla-controls cf" formGroupName="config">
         <tesla-counter
           [title]="'Speed'"
@@ -33,13 +34,18 @@ import { BatteryService } from '../../tesla-battery.service';
             [max]="40"
             formControlName="temperature">
           </tesla-counter>
+
           <tesla-climate
             [limit]="tesla.get('config.temperature').value > 10"
             formControlName="climate">
           </tesla-climate>
+
         </div>
         <tesla-wheels formControlName="wheels"></tesla-wheels>
       </div>
+
+    <form class="tesla-battery" [formGroup]="tesla">
+      <h1>{{ title }}</h1>
       <div class="tesla-battery__notice">
         <p>
           The actual amount of range that you experience will vary based
@@ -53,6 +59,7 @@ import { BatteryService } from '../../tesla-battery.service';
         </p>
       </div>
     </form>
+  </form>
   `,
   styleUrls: ['./tesla-battery.component.scss']
 })
@@ -64,7 +71,16 @@ export class TeslaBatteryComponent implements OnInit {
   tesla: FormGroup;
 
   private results: Array<String> = ['60', '60D', '75', '75D', '90D', 'P100D'];
-
+  private calculateStats(models, value): Stat[]  {
+    return models.map(model => {
+      const { speed, temperature, climate, wheels } = value;
+      const miles = this.models[model][wheels][climate ? 'on' : 'off'].speed[speed][temperature];
+      return {
+        model,
+        miles
+      };
+    });
+  }
   constructor(public fb: FormBuilder, private batteryService: BatteryService) {}
 
   ngOnInit() {
@@ -80,17 +96,6 @@ export class TeslaBatteryComponent implements OnInit {
     this.stats = this.calculateStats(this.results, this.tesla.controls['config'].value);
     this.tesla.controls['config'].valueChanges.subscribe(data => {
       this.stats = this.calculateStats(this.results, data);
-    });
-  }
-
-  private calculateStats(models, value): Stat[]  {
-    return models.map(model => {
-      const { speed, temperature, climate, wheels } = value;
-      const miles = this.models[model][wheels][climate ? 'on' : 'off'].speed[speed][temperature];
-      return {
-        model,
-        miles
-      };
     });
   }
 
